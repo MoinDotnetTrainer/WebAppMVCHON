@@ -23,7 +23,7 @@ namespace WebAppMVCHON.Models
         public string? Status { get; set; }
 
         [Required(ErrorMessage = "AssignedUserId Required")]
-        public int AssignedUserId { get; set; }
-        public Users? AssignedUser { get; set; } // navigation
+        public int AssignedUserId { get; set; }// userid will be given , to a specif user this task is assigned
+        public Users? AssignedUser { get; set; } // navigation to user info
     }
 }

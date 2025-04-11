@@ -9,6 +9,8 @@ namespace WebAppMVCHON.Repos
         // getting all user info 
         Task<IEnumerable<Users>> GetAllUsers();
 
+ 
+
         // inserting user info
         Task InsertUser(Users users);
 
@@ -28,5 +30,6 @@ namespace WebAppMVCHON.Repos
         bool Login(LoginModel obj);
 
         Task SaveAsync();
+
     }
 }

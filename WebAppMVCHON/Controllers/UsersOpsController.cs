@@ -36,7 +36,7 @@ namespace WebAppMVCHON.Controllers
             {
                 await _iuser.InsertUser(data);
                 await _iuser.SaveAsync();
-                return RedirectToAction("UsersList");
+                return RedirectToAction("Userlogin");
             }
             return View(data);
         }
