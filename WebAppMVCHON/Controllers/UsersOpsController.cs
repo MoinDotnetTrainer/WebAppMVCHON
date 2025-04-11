@@ -40,5 +40,97 @@ namespace WebAppMVCHON.Controllers
             }
             return View(data);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> EditUsers(int UserId)
+        {
+            if (UserId == null)
+            {
+                return NotFound();
+            }
+            var res = await _iuser.GetUserbyID(UserId);
+
+            return View(res);
+        }
+
+        [HttpPost]
+        public IActionResult EditUsers(Users obj)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _iuser.UpdateUsers(obj);
+                    _iuser.SaveAsync();
+                    return RedirectToAction("UsersList");
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteUsers(int UserId)
+        {
+            var res = await _iuser.GetUserbyID(UserId);
+            return View(res);
+        }
+
+        [HttpPost, ActionName("DeleteUsers")]
+        public async Task<IActionResult> DeleteConfirm(int UserId)
+        {
+            if (UserId == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                await _iuser.DeleteUsers(UserId);
+                _iuser.SaveAsync();
+                return RedirectToAction("Userslist");
+            }
+
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> UserDetails(int UserId)
+        {
+            var res = await _iuser.GetUserbyID(UserId);
+            return View(res);
+        }
+
+
+        [HttpGet]
+        public IActionResult UserLogin()
+        {
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult UserLogin(LoginModel obj)
+        {
+            if (obj == null)
+            {
+                return BadRequest();
+            }
+            var res = _iuser.Login(obj);
+            if (res == true)
+            {
+                return RedirectToAction("UsersList");
+            }
+            TempData["res"] = "Email or password is not correct!";
+            return View();
+        }
+
+
     }
 }

@@ -12,6 +12,21 @@ namespace WebAppMVCHON.Repos
         // inserting user info
         Task InsertUser(Users users);
 
+        // get user data based in id
+        Task<Users?> GetUserbyID(int UserId);
+
+
+        // update user 
+        Task UpdateUsers(Users users);
+
+
+        // delete user
+
+        Task DeleteUsers(int UserId);
+
+
+        bool Login(LoginModel obj);
+
         Task SaveAsync();
     }
 }
