@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 using WebAppMVCHON.Models;
 using WebAppMVCHON.Repos;
 
@@ -18,7 +19,7 @@ namespace WebAppMVCHON.Controllers
         [HttpGet]
         public IActionResult AddTask()
         {
-            ViewBag.res = new SelectList(_dbContext.Users, "UserId", "UserId");
+            ViewBag.res = new SelectList(_dbContext.Users, "UserId","Username");
             return View();
         }
 
@@ -51,5 +52,43 @@ namespace WebAppMVCHON.Controllers
             return View(res);
         }
 
+        [HttpGet]
+        public IActionResult Edittask(int TaskId)
+        {
+            if (TaskId==null)
+            {
+                return NotFound();
+            }
+            var res = _dbContext.UsersTask.Find(TaskId);
+            if (res==null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.res = new SelectList(_dbContext.Users, "UserId", "UserId");
+            return View(res);
+        }
+
+        [HttpPost]
+        public IActionResult Edittask(UsersTask obj)
+        {
+            if (obj==null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _dbContext.Update(obj);
+                _dbContext.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+
+                throw ex;
+            }
+          
+            return RedirectToAction("TaskList");
+        }
     }
 }
