@@ -95,7 +95,6 @@ namespace WebAppMVCHON.Controllers
                 _iuser.SaveAsync();
                 return RedirectToAction("Userslist");
             }
-
         }
 
 
@@ -123,7 +122,7 @@ namespace WebAppMVCHON.Controllers
                 return BadRequest();
             }
             var res = _iuser.Login(obj);
-            if (res == true)
+            if (res)
             {
                 return RedirectToAction("UsersList");
             }

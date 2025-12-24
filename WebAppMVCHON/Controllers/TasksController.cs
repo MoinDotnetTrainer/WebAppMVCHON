@@ -19,7 +19,7 @@ namespace WebAppMVCHON.Controllers
         [HttpGet]
         public IActionResult AddTask()
         {
-            ViewBag.res = new SelectList(_dbContext.Users, "UserId","Username");
+           ViewBag.res = new SelectList(_dbContext.Users, "UserId", "Username"); // second is for UI
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace WebAppMVCHON.Controllers
                 return NotFound();
             }
 
-            ViewBag.res = new SelectList(_dbContext.Users, "UserId", "UserId");
+            ViewBag.res = new SelectList(_dbContext.Users, "UserId", "UserName");
             return View(res);
         }
 

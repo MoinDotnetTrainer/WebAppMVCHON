@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppMVCHON.Models;
 
@@ -11,9 +12,11 @@ using WebAppMVCHON.Models;
 namespace WebAppMVCHON.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20251224043718_AAdhar")]
+    partial class AAdhar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,49 +55,6 @@ namespace WebAppMVCHON.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("country");
-                });
-
-            modelBuilder.Entity("WebAppMVCHON.Models.DocDegree", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Degree")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Doctor____ID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DoctorrefID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DoctorsID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DoctorsID");
-
-                    b.ToTable("DocDegree");
-                });
-
-            modelBuilder.Entity("WebAppMVCHON.Models.Doctor", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Doctor");
                 });
 
             modelBuilder.Entity("WebAppMVCHON.Models.Lab", b =>
@@ -163,33 +123,6 @@ namespace WebAppMVCHON.Migrations
                     b.ToTable("Patient");
                 });
 
-            modelBuilder.Entity("WebAppMVCHON.Models.Result", b =>
-                {
-                    b.Property<int>("ResultID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultID"));
-
-                    b.Property<string>("Grade")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MarksID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StdRefNo")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StdStudentID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ResultID");
-
-                    b.HasIndex("StdStudentID");
-
-                    b.ToTable("Results");
-                });
-
             modelBuilder.Entity("WebAppMVCHON.Models.State", b =>
                 {
                     b.Property<int>("StataeID")
@@ -209,22 +142,6 @@ namespace WebAppMVCHON.Migrations
                     b.HasIndex("CountryID");
 
                     b.ToTable("state");
-                });
-
-            modelBuilder.Entity("WebAppMVCHON.Models.Std", b =>
-                {
-                    b.Property<int>("StudentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentID"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StudentID");
-
-                    b.ToTable("Std");
                 });
 
             modelBuilder.Entity("WebAppMVCHON.Models.Users", b =>
@@ -285,15 +202,6 @@ namespace WebAppMVCHON.Migrations
                     b.ToTable("UsersTask");
                 });
 
-            modelBuilder.Entity("WebAppMVCHON.Models.DocDegree", b =>
-                {
-                    b.HasOne("WebAppMVCHON.Models.Doctor", "Doctors")
-                        .WithMany()
-                        .HasForeignKey("DoctorsID");
-
-                    b.Navigation("Doctors");
-                });
-
             modelBuilder.Entity("WebAppMVCHON.Models.Lab", b =>
                 {
                     b.HasOne("WebAppMVCHON.Models.Patient", "Patient")
@@ -310,15 +218,6 @@ namespace WebAppMVCHON.Migrations
                         .HasForeignKey("AdharID");
 
                     b.Navigation("Adhar");
-                });
-
-            modelBuilder.Entity("WebAppMVCHON.Models.Result", b =>
-                {
-                    b.HasOne("WebAppMVCHON.Models.Std", "Std")
-                        .WithMany()
-                        .HasForeignKey("StdStudentID");
-
-                    b.Navigation("Std");
                 });
 
             modelBuilder.Entity("WebAppMVCHON.Models.State", b =>
